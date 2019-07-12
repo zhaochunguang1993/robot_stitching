@@ -1,0 +1,2 @@
+pip install pyhamcrest
+pip install pyzbar
