@@ -44,8 +44,10 @@ def display(im, decodedObjects):
 
 
 def hasQR(image):
-    decodedObjects = decode(image)
+    im = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    decodedObjects = decode(im)
     ret = False
+    print(decodedObjects)
     for decodedObject in decodedObjects:
         if decodedObject.type == 'QRCODE':
             ret = True

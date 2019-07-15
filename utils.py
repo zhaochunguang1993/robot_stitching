@@ -111,7 +111,7 @@ def getRectangle(points):
         if point[1] < t:
             t = point[1]
         if point[1] > b:
-            t = point[1]
+            b = point[1]
 
     return l, t, r, b
 
