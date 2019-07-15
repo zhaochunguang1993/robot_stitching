@@ -2,8 +2,8 @@ import cv2
 from utils import doAction, getWindowPos, getRectangle, moveFromInitTo
 from QRModule.qrdetect import hasQR
 
-totalX = 10
-totalY = 10
+totalX = 3
+totalY = 3
 curX = 0
 curY = 0
 interest_points = []
@@ -65,9 +65,13 @@ def imageStitching(l, t, r, b):
 
 def perform():
     global curX, curY, totalX, totalY, directionX
-    getWindowPos(windowTitle)
+    bGetWindow = getWindowPos(windowTitle)
+    if not bGetWindow:
+        print("---Can't find Control Windows.---")
+        return
 
 # Initial Position
+    print("---move initial position---")
     doAction('X0')
     doAction('Y0')
 
@@ -89,7 +93,6 @@ def perform():
             break
 
         haveQRCode, image = hasQR(image)
-        print(haveQRCode)
 
         if haveQRCode:
             savePos(curX, curY)
@@ -112,13 +115,19 @@ def perform():
                 directionX = not directionX
 
     l, t, r, b = getRectangle(interest_points)
+    print("---QR Codes Positions---")
     print(l, t, r, b)
 
-    doAction('X0')
-    doAction('Y0')
+    if l <= r and t <= b:
+        print("---move initial position---")
+        doAction('X0')
+        doAction('Y0')
 
-    moveFromInitTo(l, t)
-    imageStitching(l, t, r, b)
+        print("---move qr position---")
+        moveFromInitTo(l, t)
+
+        print("---Image Stitching---")
+        # imageStitching(l, t, r, b)
 
 
 if __name__ == '__main__':

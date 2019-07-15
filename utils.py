@@ -1,7 +1,5 @@
 import time
 import win32gui
-import win32ui
-import win32con
 import pyautogui
 
 hWnd = 0
@@ -18,11 +16,14 @@ def getWindowPos(title_text):
     global hWnd, windowPos
     _hwnd = _get_windows_bytitle(title_text, False)
     print(_hwnd)
+    if len(_hwnd) == 0:
+        return False
+
     l, t, r, b = win32gui.GetWindowRect(_hwnd[0])
     hWnd = _hwnd[0]
     windowPos = (l, t)
-    print("windowPos-{}".format(windowPos))
-    return
+    print("windowPos - {}".format(windowPos))
+    return True
 
 
 def _get_windows_bytitle(title_text, exact=True):
@@ -40,6 +41,7 @@ def _get_windows_bytitle(title_text, exact=True):
 def click_real_button(type):
     global windowPos
     win32gui.SetForegroundWindow(hWnd)
+    pyautogui.FAILSAFE = False
     x = 0
     y = 0
     if type == 'X0':
@@ -61,7 +63,6 @@ def click_real_button(type):
         x = windowPos[0] + btnYM[0]
         y = windowPos[1] + btnYM[1]
 
-    print(x, y)
     pyautogui.moveTo(x, y)
     pyautogui.click(interval=0.15)
 
@@ -97,6 +98,7 @@ def moveFromInitTo(targetX, targetY):
 
     for y in range(targetY):
         doAction('Y+')
+
 
 def getRectangle(points):
     l = 10000
