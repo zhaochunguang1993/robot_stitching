@@ -17,7 +17,7 @@ def savePos(x, y):
     return
 
 
-def imageStitching(l, t, r, b):
+def storeImages(l, t, r, b):
     # Initial Position
     # doAction('X0')
     # doAction('Y0')
@@ -38,7 +38,7 @@ def imageStitching(l, t, r, b):
         ret, image = cap.read()
         cv2.imshow('Robot', image)
 
-        file_name = "Output/{}_{}.jpg".format(_curX, _curY)
+        file_name = "Images/{}_{}.jpg".format(_curX, _curY)
         cv2.imwrite(file_name, image)
 
         key = cv2.waitKey(1)
@@ -127,7 +127,7 @@ def perform():
         moveFromInitTo(l, t)
 
         print("---Image Stitching---")
-        # imageStitching(l, t, r, b)
+        # storeImages(l, t, r, b)
 
 
 if __name__ == '__main__':
