@@ -94,10 +94,17 @@ def delay(t):
 
 def moveFromInitTo(targetX, targetY):
     for x in range(targetX):
-        doAction('X+')
+        doAction('X+', 1)
 
     for y in range(targetY):
-        doAction('Y+')
+        doAction('Y+', 1)
+
+    delay(1)
+
+
+def moveInitPos():
+    doAction('X0', 5)
+    doAction('Y0', 10)
 
 
 def getRectangle(points):
